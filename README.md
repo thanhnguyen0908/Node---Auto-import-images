@@ -1,18 +1,21 @@
 # **Project: Auto Import Images**
 
 As mentioned in the title, we're going to implement a way to auto import all images in the project's folder.
-### Result Example image
+
+## **Result Example**
 ![image info](./index.png)
 
-## STEP 1: check image format (jpg, jpeg, png, svg) and delete all exception
-## STEP 2: Install libraries svg to display
-```
- install: yarn add react-native-svg && react-native-svg-transformer
-```
+## **Step 1: Check image format**
 
-### (Optional) Using TypeScript you must declare type
+### Check image format (jpg, jpeg, png, svg) and delete all exceptions
 
-create file in `declarations.d.ts` in root project :
+## **Step 2: Install svg-display libraries**
+
+### Install: 
+  > yarn add react-native-svg && react-native-svg-transformer
+
+### **(Optional) Using TypeScript**
+We must declare type `declarations.d.ts` in root project :
 
 ```
 declare module '*.png' {
@@ -30,15 +33,15 @@ declare module '*.svg' {
   export default content;
 ```
 
-## Explain code generation:
+## Implementation:
 
-run: 
+Run: 
 ```
 node autoImportSvg.js
 ```
-result to auto generate in file `./src/asset/images/index.tsx`;
+Output file `./src/asset/images/index.tsx`;
 
-read all file in folder and check type file by regular express.
+Read all files in folder and check file types by regex.
 ```js
 let imagesList = fs
   .readdirSync('./src/asset/images', {withFileTypes: true})
@@ -48,7 +51,7 @@ let imagesList = fs
   let imageType = /(\.jpg|\.jpeg|\.png|\.svg)$/i;
   image.match(imageType)
 ```
-concat all data from `imagesList` with format `import BgTitle from '../images/bg_title.png';` then write to file output `./src/asset/images/index.tsx`
+Concat all data from `imagesList` with format `import ... from '...';` then write.
 
 ```js
 imagesList.forEach(function (image) {
